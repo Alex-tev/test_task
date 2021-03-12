@@ -6,7 +6,7 @@
   tasks:
   - name: Копирование Dockerfile на удаленный хост
     template:
-      src:  ~/test_task_rotek.ru/Dockerfile.j2
+      src:  Dockerfile.j2
       dest: "{{ ansible_env.PWD }}/Dockerfile"
 
   - name: Формирование docker image из Dockerfile
