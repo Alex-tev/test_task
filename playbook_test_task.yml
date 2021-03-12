@@ -1,0 +1,25 @@
+---
+- name: Ping на удаленном хосте из docker контейнера ping_host={{ ping_host }}
+  hosts: host
+  become: yes
+
+  tasks:
+  - name: Копирование Dockerfile на удаленный хост
+    template:
+      src:  ~/test_task_rotek.ru/Dockerfile.j2
+      dest: "{{ ansible_env.PWD }}/Dockerfile"
+
+  - name: Формирование docker image из Dockerfile
+    shell: "docker build -t ping_host {{ ansible_env.PWD }}/"
+   
+  - name: Запуск контейнера
+    shell: "docker run --rm ping_host"
+    register: resulls
+
+  - name: Печать полученого результата
+    debug:
+      var: resulls.stdout
+
+  - name: Добавление полученного результата в /tmp/ipv6_test_log фаил
+    shell: "echo {{ resulls.start }} {{  resulls.stdout_lines }} >> /tmp/ipv6_test_log"
+    delegate_to: localhost   

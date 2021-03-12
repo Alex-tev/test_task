@@ -1,0 +1,5 @@
+FROM ubuntu:20.04
+RUN apt-get update -yq  && apt-get install python3.8 -yq &&  apt-get install git -yq && apt-get install python3-pip -yq
+WORKDIR /home
+RUN git clone https://github.com/Alex-tev/multi-ping.git && cd ./multi-ping && python3 setup.py install
+CMD ["bash", "-c", "python3 /home/multi-ping/ping_test.py {{ ping_host }}"] 

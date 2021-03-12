@@ -1,0 +1,5 @@
+localhost ansible_connection=local
+
+[host]
+remote_host  ansible_host="{{ host }}" ansible_port="{{ host_port }}"
+
